@@ -25,7 +25,6 @@ async def dice(c, m: Message):
     if command == "/dice" or command == "/ludo":
 
         value = await c.send_dice(m.chat.id, reply_to_message_id=m.id)
-        await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
 
     elif command == "/dart":
 
