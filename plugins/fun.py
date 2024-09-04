@@ -1,8 +1,14 @@
 import requests
 from pyrogram import filters
-from pyrogram.types import Message
-
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from YukkiMusic import app
+ 
+
+    keyboard = InlineKeyboardMarkup(
+        [
+            [InlineKeyboardButton("🔄", callback_data="send_dice")]
+        ]
+    )
 
 
 @app.on_message(
@@ -23,8 +29,12 @@ from YukkiMusic import app
 async def dice(c, m: Message):
     command = m.text.split()[0]
     if command == "/dice" or command == "/ludo":
-
-        value = await c.send_dice(m.chat.id, reply_to_message_id=m.id)
+        keyboard = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("🔄", callback_data="send_dice")]
+            ]
+        )
+        value = await c.send_dice(m.chat.id, reply_markup=keyboard)
 
     elif command == "/dart":
 
@@ -62,6 +72,21 @@ async def bored_command(client, message):
             await message.reply("Nᴏ ᴀᴄᴛɪᴠɪᴛʏ ғᴏᴜɴᴅ.")
     else:
         await message.reply("Fᴀɪʟᴇᴅ ᴛᴏ ғᴇᴛᴄʜ ᴀᴄᴛɪᴠɪᴛʏ.")
+
+
+@app.on_callback_query(filters.regex(r"send_dice"))
+async def dice_again(client, query):
+    try:
+        await app.edit_message_text(query.message.chat.id, query.message.id, query.message.dice.emoji)
+    except:
+        pass
+    keyboard = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("🔄", callback_data="send_dice")]
+            ]
+        )
+    await client.send_dice(query.message.chat.id, reply_markup=keyboard)
+    
 
 
 __MODULE__ = "Fᴜɴ"
