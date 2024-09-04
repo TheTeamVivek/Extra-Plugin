@@ -2,13 +2,10 @@ import requests
 from pyrogram import filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from YukkiMusic import app
- 
 
-    keyboard = InlineKeyboardMarkup(
-        [
-            [InlineKeyboardButton("🔄", callback_data="send_dice")]
-        ]
-    )
+keyboard = InlineKeyboardMarkup(
+    [[InlineKeyboardButton("🔄", callback_data="send_dice")]]
+)
 
 
 @app.on_message(
@@ -30,9 +27,7 @@ async def dice(c, m: Message):
     command = m.text.split()[0]
     if command == "/dice" or command == "/ludo":
         keyboard = InlineKeyboardMarkup(
-            [
-                [InlineKeyboardButton("🔄", callback_data="send_dice")]
-            ]
+            [[InlineKeyboardButton("🔄", callback_data="send_dice")]]
         )
         value = await c.send_dice(m.chat.id, reply_markup=keyboard)
 
@@ -77,16 +72,15 @@ async def bored_command(client, message):
 @app.on_callback_query(filters.regex(r"send_dice"))
 async def dice_again(client, query):
     try:
-        await app.edit_message_text(query.message.chat.id, query.message.id, query.message.dice.emoji)
-    except:
+        await app.edit_message_text(
+            query.message.chat.id, query.message.id, query.message.dice.emoji
+        )
+    except BaseException:
         pass
     keyboard = InlineKeyboardMarkup(
-            [
-                [InlineKeyboardButton("🔄", callback_data="send_dice")]
-            ]
-        )
+        [[InlineKeyboardButton("🔄", callback_data="send_dice")]]
+    )
     await client.send_dice(query.message.chat.id, reply_markup=keyboard)
-    
 
 
 __MODULE__ = "Fᴜɴ"
