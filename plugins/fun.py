@@ -3,11 +3,6 @@ from pyrogram import filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from YukkiMusic import app
 
-keyboard = InlineKeyboardMarkup(
-    [[InlineKeyboardButton("🔄", callback_data="send_dice")]]
-)
-
-
 @app.on_message(
     filters.command(
         [
