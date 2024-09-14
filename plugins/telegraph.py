@@ -33,14 +33,17 @@ async def get_link_group(client, message):
     elif media.document:
         file_size = media.document.file_size
 
-    if file_size > 50 * 1024 * 1024:
-        return await message.reply_text("Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 50MB.")
+    if file_size > 200 * 1024 * 1024:
+        return await message.reply_text("Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 200MB.")
 
     try:
         text = await message.reply("Pʀᴏᴄᴇssɪɴɢ...")
 
         async def progress(current, total):
-            await text.edit_text(f"📥 Dᴏᴡɴʟᴏᴀᴅɪɴɢ... {current * 100 / total:.1f}%")
+            try:
+                await text.edit_text(f"📥 Dᴏᴡɴʟᴏᴀᴅɪɴɢ... {current * 100 / total:.1f}%")
+            except Exception:
+                pass
 
         try:
             local_path = await media.download(progress=progress)
