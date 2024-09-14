@@ -1,26 +1,22 @@
 import os
-import json
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import app
 import requests
 
+
 def upload_file(file_path):
-    url = 'https://catbox.moe/user/api.php'
-    data = {
-        'reqtype': 'fileupload',
-        'json': 'true'
-    }
-    files = {
-        'fileToUpload': open(file_path, 'rb')
-    }
+    url = "https://catbox.moe/user/api.php"
+    data = {"reqtype": "fileupload", "json": "true"}
+    files = {"fileToUpload": open(file_path, "rb")}
     response = requests.post(url, data=data, files=files)
 
     if response.status_code == 200:
         return True, response.text.strip()
     else:
         return False, f"ᴇʀʀᴏʀ: {response.status_code} - {response.text}"
-        
+
+
 @app.on_message(filters.command(["tgm", "tgt", "telegraph", "tl"]))
 async def get_link_group(client, message):
     if not message.reply_to_message:
@@ -39,7 +35,7 @@ async def get_link_group(client, message):
 
     if file_size > 50 * 1024 * 1024:
         return await message.reply_text("Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 50MB.")
-    
+
     try:
         text = await message.reply("Pʀᴏᴄᴇssɪɴɢ...")
 
@@ -49,9 +45,9 @@ async def get_link_group(client, message):
         try:
             local_path = await media.download(progress=progress)
             await text.edit_text("📤 Uᴘʟᴏᴀᴅɪɴɢ ᴛᴏ ᴛᴇʟᴇɢʀᴀᴘʜ...")
-            
+
             success, upload_path = upload_file(local_path)
-            
+
             if success:
                 await text.edit_text(
                     f"🌐 | [Uploaded Link]({upload_path})",
@@ -67,13 +63,15 @@ async def get_link_group(client, message):
                     ),
                 )
             else:
-                await text.edit_text(f"ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ ᴡʜɪʟᴇ ᴜᴘʟᴏᴀᴅɪɴɢ ʏᴏᴜʀ ғɪʟᴇ\n{upload_path}")
+                await text.edit_text(
+                    f"ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ ᴡʜɪʟᴇ ᴜᴘʟᴏᴀᴅɪɴɢ ʏᴏᴜʀ ғɪʟᴇ\n{upload_path}"
+                )
 
             try:
                 os.remove(local_path)
             except Exception:
                 pass
-        
+
         except Exception as e:
             await text.edit_text(f"❌ Fɪʟᴇ ᴜᴘʟᴏᴀᴅ ғᴀɪʟᴇᴅ\n\n<i>Rᴇᴀsᴏɴ: {e}</i>")
             try:
