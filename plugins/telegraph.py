@@ -50,12 +50,12 @@ async def get_link_group(client, message):
 
             if success:
                 await text.edit_text(
-                    f"🌐 | [Uploaded Link]({upload_path})",
+                    f"🌐 | [ᴜᴘʟᴏᴀᴅᴇᴅ ʟɪɴᴋ]({upload_path})",
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
                                 InlineKeyboardButton(
-                                    "Uploaded File",
+                                    "ᴜᴘʟᴏᴀᴅᴇᴅ ғɪʟᴇ",
                                     url=upload_path,
                                 )
                             ]
