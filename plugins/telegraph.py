@@ -2,20 +2,7 @@ import os
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import app
-import requests
-
-
-def upload_file(file_path):
-    url = "https://catbox.moe/user/api.php"
-    data = {"reqtype": "fileupload", "json": "true"}
-    files = {"fileToUpload": open(file_path, "rb")}
-    response = requests.post(url, data=data, files=files)
-
-    if response.status_code == 200:
-        return True, response.text.strip()
-    else:
-        return False, f"ᴇʀʀᴏʀ: {response.status_code} - {response.text}"
-
+from TheApi import api
 
 @app.on_message(filters.command(["tgm", "tgt", "telegraph", "tl"]))
 async def get_link_group(client, message):
@@ -33,8 +20,8 @@ async def get_link_group(client, message):
     elif media.document:
         file_size = media.document.file_size
 
-    if file_size > 200 * 1024 * 1024:
-        return await message.reply_text("Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 200MB.")
+    if file_size > 15 * 1024 * 1024:
+        return await message.reply_text("Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 15MB.")
 
     try:
         text = await message.reply("Pʀᴏᴄᴇssɪɴɢ...")
@@ -49,26 +36,21 @@ async def get_link_group(client, message):
             local_path = await media.download(progress=progress)
             await text.edit_text("📤 Uᴘʟᴏᴀᴅɪɴɢ ᴛᴏ ᴛᴇʟᴇɢʀᴀᴘʜ...")
 
-            success, upload_path = upload_file(local_path)
+            upload_path = api.upload_image(local_path)
 
-            if success:
-                await text.edit_text(
-                    f"🌐 | [ᴜᴘʟᴏᴀᴅᴇᴅ ʟɪɴᴋ]({upload_path})",
-                    reply_markup=InlineKeyboardMarkup(
+            await text.edit_text(
+                f"🌐 | [ᴜᴘʟᴏᴀᴅᴇᴅ ʟɪɴᴋ]({upload_path})",
+                reply_markup=InlineKeyboardMarkup(
+                    [
                         [
-                            [
-                                InlineKeyboardButton(
-                                    "ᴜᴘʟᴏᴀᴅᴇᴅ ғɪʟᴇ",
-                                    url=upload_path,
-                                )
-                            ]
+                            InlineKeyboardButton(
+                                "ᴜᴘʟᴏᴀᴅᴇᴅ ғɪʟᴇ",
+                                url=upload_path,
+                            )
                         ]
-                    ),
-                )
-            else:
-                await text.edit_text(
-                    f"ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ ᴡʜɪʟᴇ ᴜᴘʟᴏᴀᴅɪɴɢ ʏᴏᴜʀ ғɪʟᴇ\n{upload_path}"
-                )
+                    ]
+                ),
+            )
 
             try:
                 os.remove(local_path)
