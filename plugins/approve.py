@@ -114,15 +114,14 @@ async def approval_cb(client, cb):
 @app.on_message(filters.command("approveall") & filters.group)
 @adminsOnly("can_restrict_members")
 async def clear_pending_command(client, message):
-    if message.command[0] == approveall:
-        a = await message.reply_text("ᴡᴀɪᴛ.....")
-        chat_id = message.chat.id
-        await app.approve_all_chat_join_requests(chat_id)
-        await a.edit("ɪғ ᴀɴʏ ᴜsᴇʀ ᴀʀᴇ ᴡᴀɪᴛɪɴɢ ғᴏʀ ᴀᴘᴘʀᴏᴠᴇᴅ sᴏ ɪ ᴀᴍ ᴀᴘᴘʀᴏᴠᴇᴅ ʜɪᴍ")
-        await approvaldb.update_one(
+    a = await message.reply_text("ᴡᴀɪᴛ.....")
+    chat_id = message.chat.id
+    await app.approve_all_chat_join_requests(chat_id)
+    await a.edit("ɪғ ᴀɴʏ ᴜsᴇʀ ᴀʀᴇ ᴡᴀɪᴛɪɴɢ ғᴏʀ ᴀᴘᴘʀᴏᴠᴇᴅ sᴏ ɪ ᴀᴍ ᴀᴘᴘʀᴏᴠᴇᴅ ʜɪᴍ")
+    await approvaldb.update_one(
             {"chat_id": chat_id},
             {"$set": {"pending_users": []}},
-        )
+    )
 
 
 @app.on_message(filters.command("clearpending") & filters.group)
