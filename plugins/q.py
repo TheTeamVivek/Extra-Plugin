@@ -301,7 +301,7 @@ async def msg_quotly_cmd(self: app, ctx: Message):
         return await ctx.reply_sticker(bio_sticker)
     except Exception as e:
         await ww.delete()
-        return await ctx.reply_msg(f"ERROR: {e}")
+        return await ctx.reply_text(f"ERROR: {e}")
 
 
 __HELP__ = """
