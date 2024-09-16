@@ -119,8 +119,8 @@ async def clear_pending_command(client, message):
     await app.approve_all_chat_join_requests(chat_id)
     await a.edit("ɪғ ᴀɴʏ ᴜsᴇʀ ᴀʀᴇ ᴡᴀɪᴛɪɴɢ ғᴏʀ ᴀᴘᴘʀᴏᴠᴇᴅ sᴏ ɪ ᴀᴍ ᴀᴘᴘʀᴏᴠᴇᴅ ʜɪᴍ")
     await approvaldb.update_one(
-            {"chat_id": chat_id},
-            {"$set": {"pending_users": []}},
+        {"chat_id": chat_id},
+        {"$set": {"pending_users": []}},
     )
 
 
