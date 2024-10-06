@@ -11,7 +11,7 @@ import requests
 
 from utils import get_image, get_couple, save_couple
 from YukkiMusic import app
-
+from TheApi import api
 
 # get current date in GMT+5:30 timezone
 def get_today_date():
@@ -143,11 +143,9 @@ Nᴇxᴛ ᴄᴏᴜᴘʟᴇs ᴡɪʟʟ ʙᴇ sᴇʟᴇᴄᴛᴇᴅ ᴏɴ {tomorro
             )
 
             await msg.delete()
-            a = upload_file(test_image_path)
-            for x in a:
-                img_url = "https://graph.org/" + x
-                couple = {"c1_id": c1_id, "c2_id": c2_id}
-                await save_couple(cid, today, couple, img_url)
+            img_url = api.upload_image(test_image_path)
+            couple = {"c1_id": c1_id, "c2_id": c2_id}
+            await save_couple(cid, today, couple, img_url)
 
         else:
             msg = await message.reply_text("❣️")
@@ -180,13 +178,13 @@ Nᴇxᴛ ᴄᴏᴜᴘʟᴇs ᴡɪʟʟ ʙᴇ sᴇʟᴇᴄᴛᴇᴅ ᴏɴ {tomorro
             )
             await msg.delete()
 
-    except Exception as e:
-        print(str(e))
+    except Exception:
+        pass
     finally:
         try:
             os.remove(p1_path)
             os.remove(p2_path)
             os.remove(test_image_path)
             os.remove(cppic_path)
-        except Exception as cleanup_error:
-            print(f"Error during cleanup: {cleanup_error}")
+        except Exception:
+            pass
