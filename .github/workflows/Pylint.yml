@@ -19,7 +19,7 @@ jobs:
         run: pip install autopep8 autoflake isort black
       - name: Run autopep8 Formatter
         run: |
-          autopep8 --verbose --in-place --recursive --aggressive *.py
+          autopep8 --verbose --in-place --recursive --aggressive .
       - name: Clean Imports
         run: |
           isort .
