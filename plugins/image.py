@@ -1,8 +1,8 @@
-from pyrogram.types import InputMediaPhoto
 from config import BANNED_USERS
-from YukkiMusic import app
-from pyrogram import filters
 from TheApi import api
+from pyrogram import filters
+from YukkiMusic import app
+from pyrogram.types import InputMediaPhoto
 
 
 @app.on_message(filters.command(["image"], prefixes=["/", "!", "."]) & ~BANNED_USERS)

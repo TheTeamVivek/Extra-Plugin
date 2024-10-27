@@ -1,5 +1,6 @@
 from YukkiMusic.core.mongo import mongodb
 
+
 greetingsdb = mongodb.greetings
 
 

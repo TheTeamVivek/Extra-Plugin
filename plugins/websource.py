@@ -1,9 +1,8 @@
 import requests
 from pyrogram import filters
+from YukkiMusic import app
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
-
-from YukkiMusic import app
 
 
 def download_website(url):

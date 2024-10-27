@@ -1,6 +1,6 @@
+from TheApi import api
 from pyrogram import filters
 from YukkiMusic import app
-from TheApi import api
 
 
 @app.on_message(filters.command("hastag"))

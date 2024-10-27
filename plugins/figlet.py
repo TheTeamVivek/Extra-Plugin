@@ -1,12 +1,15 @@
 import asyncio
 from random import choice
-from pyrogram.errors import FloodWait
 
 import pyfiglet
 from pyrogram import filters
-from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-
 from YukkiMusic import app
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+)
+from pyrogram.errors import FloodWait
 
 
 def figle(text):

@@ -1,19 +1,22 @@
-from datetime import datetime, timedelta
-import pytz
 import os
 import random
-from pyrogram import filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from pyrogram.enums import ChatType
-from telegraph import upload_file
-from PIL import Image, ImageDraw
+from datetime import datetime, timedelta
+
+import pytz
 import requests
+from PIL import Image, ImageDraw
+from TheApi import api
+from pyrogram import filters
+from YukkiMusic import app
+from pyrogram.enums import ChatType
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from utils import get_image, get_couple, save_couple
-from YukkiMusic import app
-from TheApi import api
+
 
 # get current date in GMT+5:30 timezone
+
+
 def get_today_date():
     timezone = pytz.timezone("Asia/Kolkata")
     now = datetime.now(timezone)
