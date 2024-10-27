@@ -3,13 +3,13 @@ from random import choice
 
 import pyfiglet
 from pyrogram import filters
-from YukkiMusic import app
+from pyrogram.errors import FloodWait
 from pyrogram.types import (
     CallbackQuery,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
 )
-from pyrogram.errors import FloodWait
+from YukkiMusic import app
 
 
 def figle(text):
