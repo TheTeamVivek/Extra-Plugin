@@ -15,7 +15,7 @@ async def write(client, message):
         )
     nan = await message.reply_text("Pʀᴏᴄᴇssɪɴɢ...")
     try:
-        img = api.write(txt)
+        img = await api.write(txt)
         await message.reply_photo(img)
         await nan.delete()
     except Exception as e:

@@ -38,7 +38,7 @@ async def get_link_group(client, message):
             local_path = await media.download(progress=progress)
             await text.edit_text("📤 Uᴘʟᴏᴀᴅɪɴɢ ᴛᴏ ᴛᴇʟᴇɢʀᴀᴘʜ...")
 
-            upload_path = api.upload_image(local_path)
+            upload_path = await api.upload_image(local_path)
 
             await text.edit_text(
                 f"🌐 | [ᴜᴘʟᴏᴀᴅᴇᴅ ʟɪɴᴋ]({upload_path})",

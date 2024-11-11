@@ -8,7 +8,7 @@ async def hastag(bot, message):
 
     try:
         text = message.text.split(" ", 1)[1]
-        res = api.gen_hashtag(text)
+        res = await api.gen_hashtag(text)
     except IndexError:
         return await message.reply_text("Example:\n\n/hastag python")
 

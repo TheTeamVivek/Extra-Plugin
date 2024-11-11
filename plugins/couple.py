@@ -146,7 +146,7 @@ Nᴇxᴛ ᴄᴏᴜᴘʟᴇs ᴡɪʟʟ ʙᴇ sᴇʟᴇᴄᴛᴇᴅ ᴏɴ {tomorro
             )
 
             await msg.delete()
-            img_url = api.upload_image(test_image_path)
+            img_url = await api.upload_image(test_image_path)
             couple = {"c1_id": c1_id, "c2_id": c2_id}
             await save_couple(cid, today, couple, img_url)
 

@@ -18,7 +18,7 @@ async def image_from_bing(_, message):
     messagesend = await message.reply_text("**🔍 sᴇᴀʀᴄʜɪɴɢ ғᴏʀ ɪᴍᴀɢᴇs...**")
 
     media_group = []
-    for url in api.bing_image(query, 6):
+    for url in await api.bing_image(query, 6):
         media_group.append(InputMediaPhoto(media=url))
     await messagesend.edit(f"**ᴜᴘʟᴏᴀᴅɪɴɢ...**")
     try:
