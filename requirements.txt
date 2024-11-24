@@ -1,9 +1,9 @@
 gTTS
 googlesearch-python
 httpx[http2]
+TheApix==1.2.5
 pyfiglet
 lexica-api
 MukeshAPI
 nekos.py
 uuid
-git+https://github.com/Vivekkumar-IN/TheApi@main
