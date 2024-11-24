@@ -2,6 +2,7 @@ import requests
 from pyrogram import filters
 from YukkiMusic import app
 
+
 @app.on_message(filters.command("joke"))
 async def get_joke(_, message):
     response = requests.get(
