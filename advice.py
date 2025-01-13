@@ -1,5 +1,6 @@
 from pyrogram import filters
 
+
 @app.on_message(filters.command("advice"))
 async def advice(_, message):
     A = await message.reply_text("...")
