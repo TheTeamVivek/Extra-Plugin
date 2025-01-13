@@ -20,9 +20,6 @@ from YukkiMusic.utils.functions import (
 )
 from YukkiMusic.utils.keyboard import ikb
 
-from utils.error import capture_err
-from utils.permissions import adminsOnly, member_permissions
-
 
 def extract_urls(reply_markup):
     urls = []
@@ -51,7 +48,7 @@ async def eor(msg: Message, **kwargs):
 
 
 @app.on_message(filters.command("save") & filters.group & ~BANNED_USERS)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def save_notee(_, message):
     try:
         if len(message.command) < 2:
@@ -123,7 +120,7 @@ async def save_notee(_, message):
 
 
 @app.on_message(filters.command("notes") & filters.group & ~BANNED_USERS)
-@capture_err
+@utils.capture_err
 async def get_notes(_, message):
     chat_id = message.chat.id
 
@@ -139,7 +136,7 @@ async def get_notes(_, message):
 
 
 @app.on_message(filters.command("get") & filters.group & ~BANNED_USERS)
-@capture_err
+@utils.capture_err
 async def get_one_note(_, message):
     if len(message.text.split()) < 2:
         return await eor(message, text="Invalid arguments")
@@ -205,7 +202,7 @@ async def get_one_note(_, message):
 
 
 @app.on_message(filters.regex(r"^#.+") & filters.text & filters.group & ~BANNED_USERS)
-@capture_err
+@utils.capture_err
 async def get_one_note(_, message):
     from_user = message.from_user if message.from_user else message.sender_chat
     chat_id = message.chat.id
@@ -322,7 +319,7 @@ async def get_reply(message, type, file_id, data, keyb):
 
 
 @app.on_message(filters.command("delete") & filters.group & ~BANNED_USERS)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def del_note(_, message):
     if len(message.command) < 2:
         return await eor(message, text="**Usage**\n__/delete [NOTE_NAME]__")
@@ -340,7 +337,7 @@ async def del_note(_, message):
 
 
 @app.on_message(filters.command("deleteall") & filters.group & ~BANNED_USERS)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def delete_all(_, message):
     _notes = await get_note_names(message.chat.id)
     if not _notes:
@@ -364,7 +361,7 @@ async def delete_all(_, message):
 async def delete_all_cb(_, cb):
     chat_id = cb.message.chat.id
     from_user = cb.from_user
-    permissions = await member_permissions(chat_id, from_user.id)
+    permissions = await utils.member_permissions(chat_id, from_user.id)
     permission = "can_change_info"
     if permission not in permissions:
         return await cb.answer(

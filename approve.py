@@ -17,8 +17,6 @@ from YukkiMusic.core.mongo import mongodb
 from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.keyboard import ikb
 
-from utils.permissions import adminsOnly, member_permissions
-
 
 approvaldb = mongodb.autoapprove
 
@@ -32,7 +30,7 @@ def smallcap(text):
 
 
 @app.on_message(filters.command("autoapprove") & filters.group)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def approval_command(client, message):
     chat_id = message.chat.id
     chat = await approvaldb.find_one({"chat_id": chat_id})
@@ -71,7 +69,7 @@ async def approval_command(client, message):
 async def approval_cb(client, cb):
     chat_id = cb.message.chat.id
     from_user = cb.from_user
-    permissions = await member_permissions(chat_id, from_user.id)
+    permissions = await utils.member_permissions(chat_id, from_user.id)
     permission = "can_restrict_members"
     if permission not in permissions:
         if from_user.id not in SUDOERS:
@@ -114,7 +112,7 @@ async def approval_cb(client, cb):
 
 
 @app.on_message(filters.command("approveall") & filters.group)
-@adminsOnly("can_restrict_members")
+@utils.adminsOnly("can_restrict_members")
 async def clear_pending_command(client, message):
     a = await message.reply_text("ᴡᴀɪᴛ.....")
     chat_id = message.chat.id
@@ -127,7 +125,7 @@ async def clear_pending_command(client, message):
 
 
 @app.on_message(filters.command("clearpending") & filters.group)
-@adminsOnly("can_restrict_members")
+@utils.adminsOnly("can_restrict_members")
 async def clear_pending_command(client, message):
     chat_id = message.chat.id
     result = await approvaldb.update_one(
@@ -184,7 +182,7 @@ async def accept(client, message: ChatJoinRequest):
 async def manual(app, cb):
     chat = cb.message.chat
     from_user = cb.from_user
-    permissions = await member_permissions(chat.id, from_user.id)
+    permissions = await utils.member_permissions(chat.id, from_user.id)
     permission = "can_restrict_members"
     if permission not in permissions:
         if from_user.id not in SUDOERS:

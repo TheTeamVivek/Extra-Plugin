@@ -16,10 +16,6 @@ from YukkiMusic.utils.database import is_gbanned_user
 from YukkiMusic.utils.functions import check_format, extract_text_and_keyb
 from YukkiMusic.utils.keyboard import ikb
 
-from utils import del_welcome, get_welcome, set_welcome
-from utils.error import capture_err
-from utils.permissions import adminsOnly
-
 from .notes import extract_urls
 
 
@@ -46,7 +42,7 @@ async def handle_new_member(member, chat):
 
 
 @app.on_chat_member_updated(filters.group, group=6)
-@capture_err
+@utils.capture_err
 async def welcome(_, user: ChatMemberUpdated):
     if not (
         user.new_chat_member
@@ -61,7 +57,7 @@ async def welcome(_, user: ChatMemberUpdated):
 
 
 async def send_welcome_message(chat: Chat, user_id: int, delete: bool = False):
-    welcome, raw_text, file_id = await get_welcome(chat.id)
+    welcome, raw_text, file_id = await utils.get_welcome(chat.id)
 
     if not raw_text:
         return
@@ -118,7 +114,7 @@ async def send_welcome_message(chat: Chat, user_id: int, delete: bool = False):
 
 
 @app.on_message(filters.command("setwelcome") & ~filters.private)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def set_welcome_func(_, message):
     usage = "You need to reply to a text, gif or photo to set it as greetings.\n\nNotes: caption required for gif and photo."
     key = InlineKeyboardMarkup(
@@ -165,7 +161,7 @@ async def set_welcome_func(_, message):
                 raw_text = raw_text + response
         raw_text = await check_format(ikb, raw_text)
         if raw_text:
-            await set_welcome(chat_id, welcome, raw_text, file_id)
+            await utils.set_welcome(chat_id, welcome, raw_text, file_id)
             return await message.reply_text(
                 "Welcome message has been successfully set."
             )
@@ -181,18 +177,18 @@ async def set_welcome_func(_, message):
 
 
 @app.on_message(filters.command(["delwelcome", "deletewelcome"]) & ~filters.private)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def del_welcome_func(_, message):
     chat_id = message.chat.id
-    await del_welcome(chat_id)
+    await utils.del_welcome(chat_id)
     await message.reply_text("Welcome message has been deleted.")
 
 
 @app.on_message(filters.command("getwelcome") & ~filters.private)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def get_welcome_func(_, message):
     chat = message.chat
-    welcome, raw_text, file_id = await get_welcome(chat.id)
+    welcome, raw_text, file_id = await utils.get_welcome(chat.id)
     if not raw_text:
         return await message.reply_text("No welcome message set.")
     if not message.from_user:

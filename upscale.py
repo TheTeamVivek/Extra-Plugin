@@ -3,7 +3,6 @@ from pyrogram import filters
 from lexica import Client as LexicaClient
 from pyrogram.errors.exceptions.bad_request_400 import PhotoInvalidDimensions
 from YukkiMusic import app
-from utils.error import capture_err
 
 lexica_client = LexicaClient()
 
@@ -11,7 +10,7 @@ def upscale_image(image: bytes) -> bytes:
     return lexica_client.upscale(image)
 
 @app.on_message(filters.command("upscale"))
-@capture_err
+@utils.capture_err
 async def upscale_reply_image(client, message):
     if not message.reply_to_message or not message.reply_to_message.photo:
         return await message.reply_text("ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴘʜᴏᴛᴏ ᴛᴏ ᴜᴘsᴄᴀʟᴇ ɪᴛ....😑")
