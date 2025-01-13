@@ -8,7 +8,6 @@ from PIL import Image, ImageDraw
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from TheApi import api
 from YukkiMusic import app
 
 from utils import get_couple, get_image, save_couple
@@ -146,7 +145,7 @@ Nᴇxᴛ ᴄᴏᴜᴘʟᴇs ᴡɪʟʟ ʙᴇ sᴇʟᴇᴄᴛᴇᴅ ᴏɴ {tomorro
             )
 
             await msg.delete()
-            img_url = await api.upload_image(test_image_path)
+            img_url = await utils.TheApi.upload_image(test_image_path)
             couple = {"c1_id": c1_id, "c2_id": c2_id}
             await save_couple(cid, today, couple, img_url)
 

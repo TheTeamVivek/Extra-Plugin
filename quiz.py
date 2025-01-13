@@ -26,7 +26,7 @@ async def quiz(client, message):
     categories = [9, 17, 18, 20, 21, 27]
     await app.send_chat_action(message.chat.id, ChatAction.TYPING)
 
-    url = f"https://opentdb.com/api.php?amount=1&category={random.choice(categories)}&type=multiple"
+    url = f"https://opentdb.com/utils.TheApi.php?amount=1&category={random.choice(categories)}&type=multiple"
     response = requests.get(url).json()
 
     question_data = response["results"][0]
