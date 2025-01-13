@@ -17,7 +17,7 @@ async def wall(_, message: Message):
         return await message.reply_text("`Please give some query to search.`")
     m = await message.reply_text("sᴇᴀʀᴄʜɪɴɢ...")
     try:
-        url = requests.get(f"https://utils.TheApi.safone.dev/wall?query={text}").json()[
+        url = requests.get(f"https://api.safone.dev/wall?query={text}").json()[
             "results"
         ]
         ran = random.randint(0, 7)
