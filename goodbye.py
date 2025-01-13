@@ -16,12 +16,12 @@ from YukkiMusic.utils.functions import check_format, extract_text_and_keyb
 from YukkiMusic.utils.keyboard import ikb
 
 from utils import (
-    del_goodbye,
-    get_goodbye,
-    is_greetings_on,
-    set_goodbye,
-    set_greetings_off,
-    set_greetings_on,
+    utils.del_goodbye,
+    utils.get_goodbye,
+    utils.is_greetings_on,
+    utils.set_goodbye,
+    utils.set_greetings_off,
+    utils.set_greetings_on,
 )
 
 from .notes import extract_urls
@@ -59,12 +59,12 @@ async def goodbye(_, m: Message):
 
 
 async def send_left_message(chat: Chat, user_id: int, delete: bool = False):
-    is_on = await is_greetings_on(chat.id, "goodbye")
+    is_on = await utils.is_greetings_on(chat.id, "goodbye")
 
     if not is_on:
         return
 
-    goodbye, raw_text, file_id = await get_goodbye(chat.id)
+    goodbye, raw_text, file_id = await utils.get_goodbye(chat.id)
 
     if not raw_text:
         return
@@ -164,7 +164,7 @@ async def set_goodbye_func(_, message):
                 raw_text = raw_text + response
         raw_text = await check_format(ikb, raw_text)
         if raw_text:
-            await set_goodbye(chat_id, goodbye, raw_text, file_id)
+            await utils.set_goodbye(chat_id, goodbye, raw_text, file_id)
             return await message.reply_text(
                 "ɢᴏᴏᴅʙʏᴇ ᴍᴇssᴀɢᴇ ʜᴀs ʙᴇᴇɴ sᴜᴄᴄᴇssғᴜʟʟʏ sᴇᴛ."
             )
@@ -183,7 +183,7 @@ async def set_goodbye_func(_, message):
 @utils.adminsOnly("can_change_info")
 async def del_goodbye_func(_, message):
     chat_id = message.chat.id
-    await del_goodbye(chat_id)
+    await utils.del_goodbye(chat_id)
     await message.reply_text("Gᴏᴏᴅʙʏᴇ ᴍᴇssᴀɢᴇ ʜᴀs ʙᴇᴇɴ Dᴇʟᴇᴛᴇᴅ Sᴜᴄᴄᴇssғᴜʟʟʏ")
 
 
@@ -198,7 +198,7 @@ async def goodbye(client, message: Message):
     if len(command) == 2:
         action = command[1].lower()
         if action in ["on", "enable", "y", "yes", "true", "t"]:
-            success = await set_greetings_on(message.chat.id, "goodbye")
+            success = await utils.set_greetings_on(message.chat.id, "goodbye")
             if success:
                 await message.reply_text(
                     "I'ʟʟ ʙᴇ sᴀʏɪɴɢ ɢᴏᴏᴅʙʏᴇ ᴛᴏ ᴀɴʏ ʟᴇᴀᴠᴇʀs ғʀᴏᴍ ɴᴏᴡ ᴏɴ!"
@@ -207,7 +207,7 @@ async def goodbye(client, message: Message):
                 await message.reply_text("Fᴀɪʟᴇᴅ ᴛᴏ ᴇɴᴀʙʟᴇ ɢᴏᴏᴅʙʏᴇ ᴍᴇssᴀɢᴇs.")
 
         elif action in ["off", "disable", "n", "no", "false", "f"]:
-            success = await set_greetings_off(message.chat.id, "goodbye")
+            success = await utils.set_greetings_off(message.chat.id, "goodbye")
             if success:
                 await message.reply_text("I'ʟʟ sᴛᴀʏ ǫᴜɪᴇᴛ ᴡʜᴇɴ ᴘᴇᴏᴘʟᴇ ʟᴇᴀᴠᴇ.")
             else:
@@ -233,7 +233,7 @@ async def goodbye(client, message: Message):
 
 async def get_goodbye_func(_, message):
     chat = message.chat
-    goodbye, raw_text, file_id = await get_goodbye(chat.id)
+    goodbye, raw_text, file_id = await utils.get_goodbye(chat.id)
     if not raw_text:
         return await message.reply_text(
             "Dɪᴅ Yᴏᴜ ʀᴇᴍᴇᴍʙᴇʀ ᴛʜᴀᴛ ʏᴏᴜ ʜᴀᴠᴇ sᴇᴛ's ᴀɴᴛ ɢᴏᴏᴅʙʏᴇ ᴍᴇssᴀɢᴇ"
@@ -242,7 +242,7 @@ async def get_goodbye_func(_, message):
         return await message.reply_text("Yᴏᴜ'ʀᴇ ᴀɴᴏɴ, ᴄᴀɴ'ᴛ sᴇɴᴅ ɢᴏᴏᴅʙʏᴇ ᴍᴇssᴀɢᴇ.")
 
     await send_left_message(chat, message.from_user.id)
-    is_grt = await is_greetings_on(chat.id, "goodbye")
+    is_grt = await utils.is_greetings_on(chat.id, "goodbye")
     text = None
     if is_grt:
         text = "Tʀᴜᴇ"
