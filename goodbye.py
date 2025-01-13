@@ -15,15 +15,6 @@ from YukkiMusic.utils.database import is_gbanned_user
 from YukkiMusic.utils.functions import check_format, extract_text_and_keyb
 from YukkiMusic.utils.keyboard import ikb
 
-from utils import (
-    utils.del_goodbye,
-    utils.get_goodbye,
-    utils.is_greetings_on,
-    utils.set_goodbye,
-    utils.set_greetings_off,
-    utils.set_greetings_on,
-)
-
 from .notes import extract_urls
 
 
