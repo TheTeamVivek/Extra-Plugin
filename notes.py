@@ -21,7 +21,6 @@ from YukkiMusic.utils.functions import (
 from YukkiMusic.utils.keyboard import ikb
 
 
-
 def extract_urls(reply_markup):
     urls = []
     if reply_markup.inline_keyboard:

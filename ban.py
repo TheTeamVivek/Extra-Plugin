@@ -26,7 +26,6 @@ from YukkiMusic.utils.functions import (
 from YukkiMusic.utils.keyboard import ikb
 
 
-
 warnsdb = mongodb.warns
 
 __MODULE__ = "Bᴀɴ"

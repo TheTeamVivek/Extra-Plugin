@@ -20,7 +20,6 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from YukkiMusic import app
 
 
-
 BOT_USERNAME = app.username
 
 MAX_STICKERS = (

@@ -18,7 +18,6 @@ from YukkiMusic.utils.functions import (
 )
 from YukkiMusic.utils.keyboard import ikb
 
-
 from .notes import extract_urls
 
 
