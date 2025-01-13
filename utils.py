@@ -1,22 +1,21 @@
-import traceback
 import logging
-from traceback import format_exc as err
+import traceback
 from functools import wraps
-
-from pyrogram.errors import ChatWriteForbidden
-from pyrogram.types import Message
-
-from YukkiMusic import app
-from YukkiMusic.misc import SUDOERS
-from YukkiMusic.core.mongo import mongodb
+from traceback import format_exc as err
 
 from config import LOG_GROUP_ID
+from pyrogram.errors import ChatWriteForbidden
+from pyrogram.types import Message
+from YukkiMusic import app
+from YukkiMusic.core.mongo import mongodb
+from YukkiMusic.misc import SUDOERS
 
 
 coupledb = {}
 greetingsdb = mongodb.greetings
 
 # ----------- Start Of CouplesDb ---------------- #
+
 
 async def _get_lovers(cid: int):
     chat_data = coupledb.get(cid, {})
@@ -41,11 +40,13 @@ async def save_couple(cid: int, date: str, couple: dict, img: str):
     coupledb[cid]["couple"][date] = couple
     coupledb[cid]["img"] = img
 
+
 # ----------- End Of  CouplesDb ---------------- #
 
 
 # From Now All  below script is taken from https://github.com/TheHamkerCat/WilliamButcherBot
 # Please see https://github.com/TheHamkerCat/WilliamButcherBot/blob/dev/LICENSE
+
 
 def split_limits(text):
     if len(text) < 2048:
@@ -97,8 +98,6 @@ def capture_err(func):
             raise err
 
     return capture
-
-
 
 
 async def member_permissions(chat_id: int, user_id: int):
@@ -206,7 +205,6 @@ def adminsOnly(permission):
         return subFunc2
 
     return subFunc
-
 
 
 async def set_welcome(chat_id: int, message: str, raw_text: str, file_id: str):
