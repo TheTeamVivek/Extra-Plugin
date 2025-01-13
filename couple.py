@@ -10,7 +10,7 @@ from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import app
 
-from utils import get_couple, get_image, save_couple
+from utils import utils.get_couple, utils.get_image, utils.save_couple
 
 
 # get current date in GMT+5:30 timezone
@@ -59,7 +59,7 @@ async def ctest(_, message):
     cppic_path = "downloads/cppic.png"
 
     try:
-        is_selected = await get_couple(cid, today)
+        is_selected = await utils.get_couple(cid, today)
         if not is_selected:
             msg = await message.reply_text("❣️")
             list_of_users = []
@@ -147,11 +147,11 @@ Nᴇxᴛ ᴄᴏᴜᴘʟᴇs ᴡɪʟʟ ʙᴇ sᴇʟᴇᴄᴛᴇᴅ ᴏɴ {tomorro
             await msg.delete()
             img_url = await utils.TheApi.upload_image(test_image_path)
             couple = {"c1_id": c1_id, "c2_id": c2_id}
-            await save_couple(cid, today, couple, img_url)
+            await utils.save_couple(cid, today, couple, img_url)
 
         else:
             msg = await message.reply_text("❣️")
-            b = await get_image(cid)
+            b = await utils.get_image(cid)
             c1_id = int(is_selected["c1_id"])
             c2_id = int(is_selected["c2_id"])
             c1_name = (await app.get_users(c1_id)).first_name
