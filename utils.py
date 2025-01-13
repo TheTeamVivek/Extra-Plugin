@@ -313,7 +313,6 @@ async def set_greetings_off(chat_id: int, type: str) -> bool:
     return result.modified_count > 0
 
 
-
 def extract_urls(reply_markup):
     urls = []
     if reply_markup.inline_keyboard:
