@@ -18,7 +18,6 @@ from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.keyboard import ikb
 
 
-
 approvaldb = mongodb.autoapprove
 
 

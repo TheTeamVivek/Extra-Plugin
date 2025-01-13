@@ -6,7 +6,6 @@ from pyrogram.errors import FloodWait
 from YukkiMusic import app
 
 
-
 chatQueue = []
 
 stopProcess = False

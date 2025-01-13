@@ -2,7 +2,6 @@ from pyrogram import enums, filters
 from YukkiMusic import app
 
 
-
 @app.on_message(filters.command("removephoto"))
 @utils.adminsOnly("can_change_info")
 async def deletechatphoto(_, message):
