@@ -10,7 +10,9 @@ from YukkiMusic import app
 from YukkiMusic.core.mongo import mongodb
 from YukkiMusic.misc import SUDOERS
 
+from TheApi import Client
 
+TheApi = Client()
 coupledb = {}
 greetingsdb = mongodb.greetings
 
