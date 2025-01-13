@@ -10,8 +10,6 @@ from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import app
 
-from utils import utils.get_couple, utils.get_image, utils.save_couple
-
 
 # get current date in GMT+5:30 timezone
 
