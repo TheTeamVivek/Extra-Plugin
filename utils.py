@@ -311,3 +311,19 @@ async def set_greetings_off(chat_id: int, type: str) -> bool:
         {"chat_id": chat_id}, {"$set": {type: False}}, upsert=True
     )
     return result.modified_count > 0
+
+
+
+def extract_urls(reply_markup):
+    urls = []
+    if reply_markup.inline_keyboard:
+        buttons = reply_markup.inline_keyboard
+        for i, row in enumerate(buttons):
+            for j, button in enumerate(row):
+                if button.url:
+                    name = (
+                        "\n~\nbutton"
+                        if i * len(row) + j + 1 == 1
+                        else f"button{i * len(row) + j + 1}"
+                    )
+                    urls.append((f"{name}", button.text, button.url))
