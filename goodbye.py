@@ -24,7 +24,6 @@ from utils import (
     set_greetings_on,
 )
 from utils.error import capture_err
-from utils.permissions import utils.adminsOnly
 
 from .notes import extract_urls
 

@@ -1,7 +1,6 @@
 from pyrogram import enums, filters
 from YukkiMusic import app
 
-from utils.permissions import utils.adminsOnly
 
 
 @app.on_message(filters.command("removephoto"))

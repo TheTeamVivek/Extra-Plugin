@@ -18,7 +18,6 @@ from YukkiMusic.utils.keyboard import ikb
 
 from utils import del_welcome, get_welcome, set_welcome
 from utils.error import capture_err
-from utils.permissions import utils.adminsOnly
 
 from .notes import extract_urls
 
