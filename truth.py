@@ -3,8 +3,8 @@ from pyrogram import filters
 from YukkiMusic import app
 
 
-truth_api_url = "https://utils.TheApi.truthordarebot.xyz/v1/truth"
-dare_api_url = "https://utils.TheApi.truthordarebot.xyz/v1/dare"
+truth_api_url = "https://api.truthordarebot.xyz/v1/truth"
+dare_api_url = "https://api.truthordarebot.xyz/v1/dare"
 
 
 @app.on_message(filters.command("truth"))
