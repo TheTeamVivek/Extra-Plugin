@@ -5,7 +5,7 @@ from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import FloodWait
 from YukkiMusic import app
 
-from utils.permissions import adminsOnly
+from utils.permissions import utils.adminsOnly
 
 
 chatQueue = []
@@ -14,7 +14,7 @@ stopProcess = False
 
 
 @app.on_message(filters.command(["zombies"]))
-@adminsOnly("can_restrict_members")
+@utils.adminsOnly("can_restrict_members")
 async def remove(client, message):
 
     global stopProcess

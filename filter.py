@@ -19,7 +19,7 @@ from YukkiMusic.utils.functions import (
 from YukkiMusic.utils.keyboard import ikb
 
 from utils.error import capture_err
-from utils.permissions import adminsOnly, member_permissions
+from utils.permissions import utils.adminsOnly, utils.member_permissions
 
 from .notes import extract_urls
 
@@ -43,7 +43,7 @@ Checkout /markdownhelp to know more about formattings and other syntax.
 
 
 @app.on_message(filters.command("filter") & ~filters.private & ~BANNED_USERS)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def save_filters(_, message):
     try:
         if len(message.command) < 2:
@@ -258,7 +258,7 @@ async def filters_re(_, message):
 
 
 @app.on_message(filters.command("stopall") & ~filters.private & ~BANNED_USERS)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def stop_all(_, message):
     _filters = await get_filters_names(message.chat.id)
     if not _filters:
@@ -282,7 +282,7 @@ async def stop_all(_, message):
 async def stop_all_cb(_, cb):
     chat_id = cb.message.chat.id
     from_user = cb.from_user
-    permissions = await member_permissions(chat_id, from_user.id)
+    permissions = await utils.member_permissions(chat_id, from_user.id)
     permission = "can_change_info"
     if permission not in permissions:
         return await cb.answer(

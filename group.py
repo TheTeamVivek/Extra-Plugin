@@ -1,11 +1,11 @@
 from pyrogram import enums, filters
 from YukkiMusic import app
 
-from utils.permissions import adminsOnly
+from utils.permissions import utils.adminsOnly
 
 
 @app.on_message(filters.command("removephoto"))
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def deletechatphoto(_, message):
 
     chat_id = message.chat.id
@@ -29,7 +29,7 @@ async def deletechatphoto(_, message):
 
 
 @app.on_message(filters.command("setphoto"))
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def setchatphoto(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
@@ -60,7 +60,7 @@ async def setchatphoto(_, message):
 
 
 @app.on_message(filters.command("settitle"))
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def setgrouptitle(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
@@ -106,7 +106,7 @@ async def setgrouptitle(_, message):
 
 
 @app.on_message(filters.command(["setdiscription", "setdesc"]))
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def setg_discription(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id

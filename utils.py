@@ -102,7 +102,7 @@ def capture_err(func):
     return capture
 
 
-async def member_permissions(chat_id: int, user_id: int):
+async def utils.member_permissions(chat_id: int, user_id: int):
     perms = []
     member = (await app.get_chat_member(chat_id, user_id)).privileges
     if not member:
@@ -168,10 +168,10 @@ async def unauthorised(
 
 async def bot_permissions(chat_id: int):
     perms = []
-    return await member_permissions(chat_id, app.id)
+    return await utils.member_permissions(chat_id, app.id)
 
 
-def adminsOnly(permission):
+def utils.adminsOnly(permission):
     def subFunc(func):
         @wraps(func)
         async def subFunc2(client, message: Message, *args, **kwargs):
@@ -199,7 +199,7 @@ def adminsOnly(permission):
 
             # For admins and sudo users
             userID = message.from_user.id
-            permissions = await member_permissions(chatID, userID)
+            permissions = await utils.member_permissions(chatID, userID)
             if userID not in SUDOERS and permission not in permissions:
                 return await unauthorised(message, permission, subFunc2)
             return await authorised(func, subFunc2, client, message, *args, **kwargs)

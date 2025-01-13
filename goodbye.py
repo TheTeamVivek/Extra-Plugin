@@ -24,7 +24,7 @@ from utils import (
     set_greetings_on,
 )
 from utils.error import capture_err
-from utils.permissions import adminsOnly
+from utils.permissions import utils.adminsOnly
 
 from .notes import extract_urls
 
@@ -119,7 +119,7 @@ async def send_left_message(chat: Chat, user_id: int, delete: bool = False):
 
 
 @app.on_message(filters.command("setgoodbye") & ~filters.private)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def set_goodbye_func(_, message):
     usage = "Yᴏᴜ ɴᴇᴇᴅ ᴛᴏ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴛᴇxᴛ, ɢɪғ ᴏʀ ᴘʜᴏᴛᴏ ᴛᴏ sᴇᴛ ɪᴛ ᴀs ɢᴏᴏᴅʙʏᴇ ᴍᴇssᴀɢᴇ.\n\nᴏᴛᴇs: ᴄᴀᴘᴛɪᴏɴ ʀᴇǫᴜɪʀᴇᴅ ғᴏʀ ɢɪғ ᴀɴᴅ ᴘʜᴏᴛᴏ."
     key = InlineKeyboardMarkup(
@@ -182,7 +182,7 @@ async def set_goodbye_func(_, message):
 
 
 @app.on_message(filters.command(["delgoodbye", "deletegoodbye"]) & ~filters.private)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def del_goodbye_func(_, message):
     chat_id = message.chat.id
     await del_goodbye(chat_id)
@@ -190,7 +190,7 @@ async def del_goodbye_func(_, message):
 
 
 @app.on_message(filters.command("goodbye") & ~filters.private)
-@adminsOnly("can_change_info")
+@utils.adminsOnly("can_change_info")
 async def goodbye(client, message: Message):
     command = message.text.split()
 
