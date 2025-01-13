@@ -25,7 +25,6 @@ from YukkiMusic.utils.functions import (
 )
 from YukkiMusic.utils.keyboard import ikb
 
-from utils.error import capture_err
 
 
 warnsdb = mongodb.warns
@@ -621,7 +620,7 @@ async def remove_warnings(_, message: Message):
 
 
 @app.on_message(filters.command("warns") & ~filters.private & ~BANNED_USERS)
-@capture_err
+@utils.capture_err
 async def check_warns(_, message: Message):
     user_id = await extract_user(message)
     if not user_id:

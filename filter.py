@@ -18,7 +18,6 @@ from YukkiMusic.utils.functions import (
 )
 from YukkiMusic.utils.keyboard import ikb
 
-from utils.error import capture_err
 
 from .notes import extract_urls
 
@@ -118,7 +117,7 @@ async def save_filters(_, message):
 
 
 @app.on_message(filters.command("filters") & ~filters.private & ~BANNED_USERS)
-@capture_err
+@utils.capture_err
 async def get_filterss(_, message):
     _filters = await get_filters_names(message.chat.id)
     if not _filters:
@@ -139,7 +138,7 @@ async def get_filterss(_, message):
     & ~BANNED_USERS,
     group=1,
 )
-@capture_err
+@utils.capture_err
 async def filters_re(_, message):
     from_user = message.from_user if message.from_user else message.sender_chat
     user_id = from_user.id

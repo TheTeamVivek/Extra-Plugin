@@ -23,7 +23,6 @@ from utils import (
     set_greetings_off,
     set_greetings_on,
 )
-from utils.error import capture_err
 
 from .notes import extract_urls
 
@@ -51,7 +50,7 @@ async def handle_left_member(member, chat):
 
 
 @app.on_message(filters.left_chat_member & filters.group, group=6)
-@capture_err
+@utils.capture_err
 async def goodbye(_, m: Message):
     if m.from_user:
         member = await app.get_users(m.from_user.id)

@@ -17,7 +17,6 @@ from YukkiMusic.utils.functions import check_format, extract_text_and_keyb
 from YukkiMusic.utils.keyboard import ikb
 
 from utils import del_welcome, get_welcome, set_welcome
-from utils.error import capture_err
 
 from .notes import extract_urls
 
@@ -45,7 +44,7 @@ async def handle_new_member(member, chat):
 
 
 @app.on_chat_member_updated(filters.group, group=6)
-@capture_err
+@utils.capture_err
 async def welcome(_, user: ChatMemberUpdated):
     if not (
         user.new_chat_member

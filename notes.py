@@ -20,7 +20,6 @@ from YukkiMusic.utils.functions import (
 )
 from YukkiMusic.utils.keyboard import ikb
 
-from utils.error import capture_err
 
 
 def extract_urls(reply_markup):
@@ -122,7 +121,7 @@ async def save_notee(_, message):
 
 
 @app.on_message(filters.command("notes") & filters.group & ~BANNED_USERS)
-@capture_err
+@utils.capture_err
 async def get_notes(_, message):
     chat_id = message.chat.id
 
@@ -138,7 +137,7 @@ async def get_notes(_, message):
 
 
 @app.on_message(filters.command("get") & filters.group & ~BANNED_USERS)
-@capture_err
+@utils.capture_err
 async def get_one_note(_, message):
     if len(message.text.split()) < 2:
         return await eor(message, text="Invalid arguments")
@@ -204,7 +203,7 @@ async def get_one_note(_, message):
 
 
 @app.on_message(filters.regex(r"^#.+") & filters.text & filters.group & ~BANNED_USERS)
-@capture_err
+@utils.capture_err
 async def get_one_note(_, message):
     from_user = message.from_user if message.from_user else message.sender_chat
     chat_id = message.chat.id
