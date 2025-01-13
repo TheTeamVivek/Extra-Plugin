@@ -18,7 +18,7 @@ from YukkiMusic.utils.functions import (
 )
 from YukkiMusic.utils.keyboard import ikb
 
-from .notes import extract_urls
+extract_urls = utils.extract_urls
 
 
 __MODULE__ = "Filters"
