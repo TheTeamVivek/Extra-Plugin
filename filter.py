@@ -19,7 +19,6 @@ from YukkiMusic.utils.functions import (
 from YukkiMusic.utils.keyboard import ikb
 
 from utils.error import capture_err
-from utils.permissions import utils.adminsOnly, utils.member_permissions
 
 from .notes import extract_urls
 
