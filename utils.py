@@ -6,11 +6,11 @@ from traceback import format_exc as err
 from config import LOG_GROUP_ID
 from pyrogram.errors import ChatWriteForbidden
 from pyrogram.types import Message
+from TheApi import Client
 from YukkiMusic import app
 from YukkiMusic.core.mongo import mongodb
 from YukkiMusic.misc import SUDOERS
 
-from TheApi import Client
 
 TheApi = Client()
 coupledb = {}
