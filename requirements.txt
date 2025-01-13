@@ -1,7 +1,7 @@
 gTTS
 googlesearch-python
 httpx[http2]
-TheApix==1.2.5
+TheApix
 pyfiglet
 lexica-api
 MukeshAPI
