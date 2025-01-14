@@ -64,7 +64,7 @@ async def send_left_message(chat: Chat, user_id: int, delete: bool = False):
     text = raw_text
     keyb = None
 
-    if findall(r"\[.+\,.+\]", raw_text):
+    if findall(r".+\,.+", raw_text):
         text, keyb = extract_text_and_keyb(ikb, raw_text)
 
     u = await app.get_users(user_id)
@@ -96,6 +96,13 @@ async def send_left_message(chat: Chat, user_id: int, delete: bool = False):
         m = await app.send_photo(
             chat.id,
             photo=file_id,
+            caption=text,
+            reply_markup=keyb,
+        )
+    elif goodbye == "Video":
+        m = await app.send_video(
+            chat.id,
+            video=file_id,
             caption=text,
             reply_markup=keyb,
         )
@@ -135,19 +142,26 @@ async def set_goodbye_func(_, message):
             if not text:
                 return await message.reply_text(usage, reply_markup=key)
             raw_text = text.markdown
-        if replied_message.photo:
+        elif replied_message.video:
+            goodbye = "Video"
+            file_id = replied_message.video.file_id
+            text = replied_message.caption
+            if not text:
+                return await message.reply_text(usage, reply_markup=key)
+            raw_text = text.markdown
+        elif replied_message.photo:
             goodbye = "Photo"
             file_id = replied_message.photo.file_id
             text = replied_message.caption
             if not text:
                 return await message.reply_text(usage, reply_markup=key)
             raw_text = text.markdown
-        if replied_message.text:
+        elif replied_message.text:
             goodbye = "Text"
             file_id = None
             text = replied_message.text
             raw_text = text.markdown
-        if replied_message.reply_markup and not findall(r"\[.+\,.+\]", raw_text):
+        if replied_message.reply_markup and not findall(r".+\,.+", raw_text):
             urls = extract_urls(replied_message.reply_markup)
             if urls:
                 response = "\n".join(
