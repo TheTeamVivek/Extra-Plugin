@@ -64,7 +64,7 @@ async def send_welcome_message(chat: Chat, user_id: int, delete: bool = False):
         return
     text = raw_text
     keyb = None
-    if findall(r"\[.+\,.+\]", raw_text):
+    if findall(r".+\,.+", raw_text):
         text, keyb = extract_text_and_keyb(ikb, raw_text)
     u = await app.get_users(user_id)
     if "{GROUPNAME}" in text:
@@ -105,6 +105,13 @@ async def send_welcome_message(chat: Chat, user_id: int, delete: bool = False):
             caption=text,
             reply_markup=keyb,
         )
+    elif welcome == "Video":
+        m = await app.send_video(
+            chat.id,
+            video=file_id,
+            caption=text,
+            reply_markup=keyb,
+        )
     else:
         m = await app.send_animation(
             chat.id,
@@ -117,7 +124,7 @@ async def send_welcome_message(chat: Chat, user_id: int, delete: bool = False):
 @app.on_message(filters.command("setwelcome") & ~filters.private)
 @utils.adminsOnly("can_change_info")
 async def set_welcome_func(_, message):
-    usage = "You need to reply to a text, gif or photo to set it as greetings.\n\nNotes: caption required for gif and photo."
+    usage = "You need to reply to a text, gif or video or photo to set it as greetings.\n\nNotes: caption required for gif and video and photo."
     key = InlineKeyboardMarkup(
         [
             [
@@ -141,19 +148,26 @@ async def set_welcome_func(_, message):
             if not text:
                 return await message.reply_text(usage, reply_markup=key)
             raw_text = text.markdown
-        if replied_message.photo:
+        elif replied_message.video:
+            welcome = "Video"
+            file_id = replied_message.video.file_id
+            text = replied_message.caption
+            if not text:
+                return await message.reply_text(usage, reply_markup=key)
+            raw_text = text.markdown
+        elif replied_message.photo:
             welcome = "Photo"
             file_id = replied_message.photo.file_id
             text = replied_message.caption
             if not text:
                 return await message.reply_text(usage, reply_markup=key)
             raw_text = text.markdown
-        if replied_message.text:
+        elif replied_message.text:
             welcome = "Text"
             file_id = None
             text = replied_message.text
             raw_text = text.markdown
-        if replied_message.reply_markup and not findall(r"\[.+\,.+\]", raw_text):
+        if replied_message.reply_markup and not findall(r".+\,.+", raw_text):
             urls = extract_urls(replied_message.reply_markup)
             if urls:
                 response = "\n".join(
@@ -173,7 +187,7 @@ async def set_welcome_func(_, message):
             )
     except UnboundLocalError:
         return await message.reply_text(
-            "**Only Text, Gif and Photo welcome message are supported.**"
+            "**Only Text, Gif and Video, Photo welcome message are supported.**"
         )
 
 
