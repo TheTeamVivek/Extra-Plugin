@@ -99,6 +99,13 @@ async def send_left_message(chat: Chat, user_id: int, delete: bool = False):
             caption=text,
             reply_markup=keyb,
         )
+    elif goodbye == "Video":
+        m = await app.send_video(
+            chat.id,
+            video=file_id,
+            caption=text,
+            reply_markup=keyb,
+        )
     else:
         m = await app.send_animation(
             chat.id,
@@ -135,14 +142,21 @@ async def set_goodbye_func(_, message):
             if not text:
                 return await message.reply_text(usage, reply_markup=key)
             raw_text = text.markdown
-        if replied_message.photo:
+        elif replied_message.video:
+            goodbye = "Video"
+            file_id = replied_message.video.file_id
+            text = replied_message.caption
+            if not text:
+                return await message.reply_text(usage, reply_markup=key)
+            raw_text = text.markdown
+        elif replied_message.photo:
             goodbye = "Photo"
             file_id = replied_message.photo.file_id
             text = replied_message.caption
             if not text:
                 return await message.reply_text(usage, reply_markup=key)
             raw_text = text.markdown
-        if replied_message.text:
+        elif replied_message.text:
             goodbye = "Text"
             file_id = None
             text = replied_message.text
