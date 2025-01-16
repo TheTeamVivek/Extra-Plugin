@@ -1,4 +1,4 @@
-import requests
+'''import requests
 from MukeshAPI import api
 from pyrogram import filters
 from pyrogram.enums import ChatAction
@@ -32,3 +32,4 @@ async def gemini_handler(client, message):
             await message.reply_text("sᴏʀʀʏ sɪʀ! ᴘʟᴇᴀsᴇ Tʀʏ ᴀɢᴀɪɴ")
     except requests.exceptions.RequestException as e:
         pass
+'''
