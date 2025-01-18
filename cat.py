@@ -10,9 +10,12 @@ from pyrogram.types import (
 
 def buttons(url: str) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(
+        [
             [InlineKeyboardButton(text="🔗 Link 🔗", url=url)],
-            [InlineKeyboardButton(text="🔄 Refresh 🔄", callback_data="refresh_cat"),
-             InlineKeyboardButton(text="🗑️ Close 🗑️", callback_data="close")],
+            [
+                InlineKeyboardButton(text="🔄 Refresh 🔄", callback_data="refresh_cat"),
+                InlineKeyboardButton(text="🗑️ Close 🗑️", callback_data="close"),
+            ],
         ]
     )
     return keyboard
