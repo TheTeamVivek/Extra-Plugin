@@ -11,7 +11,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 
-MAX_MESSAGE_SIZE_LIMIT = 4095
+MAX_MESSAGE_SIZE_LIMIT = 4090
 
 
 def humanbytes(size):
@@ -20,21 +20,6 @@ def humanbytes(size):
         if size < 1024:
             return f"{size:.2f} {unit}"
         size /= 1024
-
-
-async def eor(msg: Message, **kwargs):
-    """Edit or reply to a message."""
-    if msg.from_user and msg.from_user.is_self:
-        func = msg.edit_text
-    else:
-        func = msg.reply
-
-    # Get valid arguments for the function
-    valid_args = signature(func).parameters.keys()
-    filtered_kwargs = {k: v for k, v in kwargs.items() if k in valid_args}
-
-    return await func(**filtered_kwargs)
-
 
 @app.on_message(filters.command("ls") & ~filters.forwarded & ~filters.via_bot & SUDOERS)
 @utils.capture_err
@@ -48,8 +33,7 @@ async def lst(_, message):
         path = directory
 
     if not exists(path):
-        await eor(
-            message,
+        await message.reply(
             text=f"There is no such directory or file with the name `{directory}`. Check again!",
         )
         return
@@ -137,16 +121,14 @@ async def lst(_, message):
             await app.send_document(message.chat.id, out_file, caption=path)
             await message.delete()
     else:
-        await eor(message, text=msg)
+        await message.reply(msg)
 
 
 @app.on_message(filters.command("rm") & ~filters.forwarded & ~filters.via_bot & SUDOERS)
 @utils.capture_err
 async def rm_files(_, message):
     if len(message.command) < 2:
-        return await eor(
-            message, text="Please provide file(s) or directory(s) to delete."
-        )
+        return await message.reply("Please provide file(s) or directory(s) to delete.")
 
     # Split into multiple file names
     files = message.text.split(" ", 1)[1].split()
@@ -176,4 +158,4 @@ async def rm_files(_, message):
     if errors:
         response += "Errors:\n" + "\n".join(errors)
 
-    await eor(message, text=response.strip())
+    await message.reply(response.strip())
