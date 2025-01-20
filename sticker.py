@@ -1,4 +1,4 @@
-import imghdr
+import filetype
 import math
 import os
 from asyncio import gather
@@ -221,9 +221,10 @@ async def kang(client, message: Message):
                 return await msg.edit("File size too large.")
 
             temp_file_path = await app.download_media(doc)
-            image_type = imghdr.what(temp_file_path)
-            if image_type not in SUPPORTED_TYPES:
-                return await msg.edit("Format not supported! ({})".format(image_type))
+            image_type = filetype.guess(temp_file_path)
+            if not image_type or image_type.extension 
+            not in SUPPORTED_TYPES:
+                return await msg.edit(f"Format not supported! ({image_type.extension if image_type else 'unknown'})")
             try:
                 temp_file_path = await resize_file_to_sticker_size(temp_file_path)
             except OSError as e:
