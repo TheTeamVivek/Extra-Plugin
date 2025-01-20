@@ -1,10 +1,9 @@
-import filetype
 import math
 import os
 from asyncio import gather
-from traceback import format_exc
 from typing import List
 
+import filetype
 from PIL import Image
 from pyrogram import Client, errors, filters, raw
 from pyrogram.errors import (
@@ -221,10 +220,12 @@ async def kang(client, message: Message):
                 return await msg.edit("File size too large.")
 
             temp_file_path = await app.download_media(doc)
+            # Using filetype to detect the file type
             image_type = filetype.guess(temp_file_path)
-            if not image_type or image_type.extension 
-            not in SUPPORTED_TYPES:
-                return await msg.edit(f"Format not supported! ({image_type.extension if image_type else 'unknown'})")
+            if not image_type or image_type.extension not in SUPPORTED_TYPES:
+                return await msg.edit(
+                    f"Format not supported! ({image_type.extension if image_type else 'unknown'})"
+                )
             try:
                 temp_file_path = await resize_file_to_sticker_size(temp_file_path)
             except OSError as e:
@@ -243,21 +244,18 @@ async def kang(client, message: Message):
     except ShortnameOccupyFailed:
         await message.reply_text("Change Your Name Or Username")
         return
-
     except Exception as e:
         await message.reply_text(str(e))
-        e = format_exc()
-        return print(e)
+        return
 
-    # Find an available pack & add the sticker to the pack; create a new pack if needed
-    # Would be a good idea to cache the number instead of searching it every
-    # single time...
+    # Find an available pack & add the sticker to the pack; create a new pack
+    # if needed
     packnum = 0
     packname = "f" + str(message.from_user.id) + "_by_" + BOT_USERNAME
     limit = 0
     try:
         while True:
-            # Prevent infinite rules
+            # Prevent infinite loops
             if limit >= 50:
                 return await msg.delete()
 
