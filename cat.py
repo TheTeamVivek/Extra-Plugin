@@ -8,6 +8,7 @@ from pyrogram.types import (
     Message,
 )
 
+
 def buttons(url: str) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup(
         [

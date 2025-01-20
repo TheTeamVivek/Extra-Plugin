@@ -2,13 +2,11 @@ import io
 import os
 import shutil
 import time
-from inspect import signature
 from os.path import exists, isdir
 
+from pyrogram import filters
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
-from pyrogram import filters
-from pyrogram.types import Message
 
 
 MAX_MESSAGE_SIZE_LIMIT = 4090
@@ -20,6 +18,7 @@ def humanbytes(size):
         if size < 1024:
             return f"{size:.2f} {unit}"
         size /= 1024
+
 
 @app.on_message(filters.command("ls") & ~filters.forwarded & ~filters.via_bot & SUDOERS)
 @utils.capture_err

@@ -44,7 +44,7 @@ async def love_command(client, message):
         response = f"{name1}💕 + {name2}💕 = {love_percentage}%\n\n{love_message}"
     else:
         response = "Please enter two names after /love command."
-        
+
     await app.send_message(message.chat.id, response)
 
 
