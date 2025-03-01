@@ -1,12 +1,11 @@
-import asyncio
-from g4f.client import AsyncClient
-
-
 from config import BANNED_USERS
+from g4f.client import AsyncClient
 from pyrogram import filters
 from YukkiMusic import app
 
+
 client = AsyncClient()
+
 
 @app.on_message(filters.command(["ai", "chatgpt", "ask", "gpt4"]) & ~BANNED_USERS)
 async def chatgpt_chat(bot, message):
@@ -24,18 +23,19 @@ async def chatgpt_chat(bot, message):
     x = await message.reply("...")
     model = "gpt-4o-mini" if message.command[0] != "gpt4" else "gpt-4"
     response = await client.chat.completions.create(
-    model=model,
-    messages=[
-        {
-            "role": "user",
-            "content":user_input
-        },
-      
-    ]
-)
-    await x.edit(response.choices[0].message.content.replace("[[Login to OpenAI ChatGPT]]()", "").strip())
+        model=model,
+        messages=[
+            {"role": "user", "content": user_input},
+        ],
+    )
+    await x.edit(
+        response.choices[0]
+        .message.content.replace("[[Login to OpenAI ChatGPT]]()", "")
+        .strip()
+    )
     await message.stop_propagation()
-    
+
+
 __MODULE__ = "CʜᴀᴛGᴘᴛ"
 __HELP__ = """
 /advice - ɢᴇᴛ ʀᴀɴᴅᴏᴍ ᴀᴅᴠɪᴄᴇ ʙʏ ʙᴏᴛ
