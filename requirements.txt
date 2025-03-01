@@ -1,3 +1,4 @@
+g4f[all]
 filetype # Replacement of imghdr
 gTTS
 googlesearch-python
