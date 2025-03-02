@@ -1,39 +1,49 @@
-name: Code Formatter
+name: Format Codes
 
 on:
   push:
     paths:
-    - "**.py"
+      - "**.py"
+      - "**.yml"
   workflow_dispatch:
 
 jobs:
   Format_Code:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - name: Setup Python Environment
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10.x"
+
       - name: Install Formatting Tools
-        run: pip install autopep8 autoflake isort black
-      - name: Run autopep8 Formatter
         run: |
-          autopep8 --verbose --in-place --recursive --aggressive .
-      - name: Clean Imports
+             pip install --upgrade pip
+             pip install autoflake isort black pyupgrade pylint
+
+      - name: format codes
         run: |
-          isort .
-          autoflake --in-place --recursive --remove-all-unused-imports --ignore-init-module-imports .
-      - name: Apply Code Formatting
-        run: |
+          autoflake --in-place --recursive .
+
           black .
           isort .
-      - name: Auto Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+
+
+      - name: Update Syntax to python3.10+
+        run: |
+          find . -name "*.py" -exec pyupgrade --py39-plus {} \;
+
+      - name: Commit Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-            commit_message: "Auto Code Formatting Fixes"
-            commit_options: "--no-verify"
-            repository: .
-            commit_user_name: "github-actions[bot]"
-            commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
-            commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          commit_message: "Format Codes"
+          commit_options: "--no-verify"
+          repository: .
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
+          commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+
+      - name: Delete old workflow run
+        uses: Viyomx/delete-workflow-runs@v1.0.1
