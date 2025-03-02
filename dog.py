@@ -10,7 +10,6 @@ from pyrogram.types import (
 )
 from YukkiMusic import app
 
-
 close_keyboard = InlineKeyboardMarkup(
     [
         [InlineKeyboardButton(text="Rᴇғʀᴇsʜ", callback_data="refresh_dog")],

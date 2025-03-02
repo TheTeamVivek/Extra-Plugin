@@ -57,5 +57,5 @@ async def vc_members(client, message):
                 _["V_C_4"].format(link),
                 disable_web_page_preview=True,
             )
-    except ValueError as e:
+    except ValueError:
         await msg.edit(_["V_C_5"])

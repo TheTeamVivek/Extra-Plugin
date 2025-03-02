@@ -1,7 +1,6 @@
 import math
 import os
 from asyncio import gather
-from typing import List
 
 import filetype
 from PIL import Image
@@ -17,7 +16,6 @@ from pyrogram.errors import (
 from pyrogram.file_id import FileId
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from YukkiMusic import app
-
 
 BOT_USERNAME = app.username
 

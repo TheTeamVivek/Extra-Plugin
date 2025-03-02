@@ -18,7 +18,6 @@ from YukkiMusic.utils.functions import (
 )
 from YukkiMusic.utils.keyboard import ikb
 
-
 extract_urls = utils.extract_urls
 
 
@@ -141,7 +140,7 @@ async def get_filterss(_, message):
 @utils.capture_err
 async def filters_re(_, message):
     from_user = message.from_user if message.from_user else message.sender_chat
-    user_id = from_user.id
+    from_user.id
     chat_id = message.chat.id
     text = message.text.lower().strip()
     if not text:

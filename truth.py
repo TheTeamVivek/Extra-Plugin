@@ -2,7 +2,6 @@ import requests
 from pyrogram import filters
 from YukkiMusic import app
 
-
 truth_api_url = "https://api.truthordarebot.xyz/v1/truth"
 dare_api_url = "https://api.truthordarebot.xyz/v1/dare"
 
@@ -18,7 +17,7 @@ def get_truth(client, message):
             message.reply_text(
                 "Failed to fetch a truth question. Please try again later."
             )
-    except Exception as e:
+    except Exception:
         message.reply_text(
             "An error occurred while fetching a truth question. Please try again later."
         )
@@ -35,7 +34,7 @@ def get_dare(client, message):
             message.reply_text(
                 "Failed to fetch a dare question. Please try again later."
             )
-    except Exception as e:
+    except Exception:
         message.reply_text(
             "An error occurred while fetching a dare question. Please try again later."
         )

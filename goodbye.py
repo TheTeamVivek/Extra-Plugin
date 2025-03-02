@@ -2,8 +2,8 @@ import datetime
 from re import findall
 
 from pyrogram import filters
-from pyrogram.errors import ChatAdminRequired
 from pyrogram.enums import ChatMemberStatus as CMS
+from pyrogram.errors import ChatAdminRequired
 from pyrogram.types import (
     Chat,
     ChatMemberUpdated,
@@ -16,7 +16,6 @@ from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.database import is_gbanned_user
 from YukkiMusic.utils.functions import check_format, extract_text_and_keyb
 from YukkiMusic.utils.keyboard import ikb
-
 
 extract_urls = utils.extract_urls
 
@@ -47,10 +46,9 @@ async def handle_left_member(member, chat):
 @utils.capture_err
 async def member_has_left(c: app, member: ChatMemberUpdated):
     if (
-        member.old_chat_member 
-        and member.new_chat_member is None 
-        and member.old_chat_member.status
-        not in {CMS.BANNED, CMS.RESTRICTED}
+        member.old_chat_member
+        and member.new_chat_member is None
+        and member.old_chat_member.status not in {CMS.BANNED, CMS.RESTRICTED}
     ):
         chat = member.chat
         user = member.old_chat_member.user

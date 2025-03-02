@@ -31,7 +31,7 @@ async def wall(_, message: Message):
             ),
         )
         await m.delete()
-    except Exception as e:
+    except Exception:
         await m.edit_text(
             f"`ᴡᴀʟʟᴘᴀᴘᴇʀ ɴᴏᴛ ғᴏᴜɴᴅ ғᴏʀ : `{text}`",
         )

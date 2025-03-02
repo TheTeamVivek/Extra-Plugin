@@ -33,7 +33,6 @@ from YukkiMusic.utils.database import (
 from YukkiMusic.utils.logger import play_logs
 from YukkiMusic.utils.stream.stream import stream
 
-
 RADIO_STATION = {
     "Air Bilaspur": "http://air.pc.cdn.bitgravity.com/air/live/pbaudio110/playlist.m3u8",
     "Air Raipur": "http://air.pc.cdn.bitgravity.com/air/live/pbaudio118/playlist.m3u8",
@@ -91,7 +90,7 @@ async def radio(client, message: Message):
             except InviteRequestSent:
                 try:
                     await app.approve_chat_join_request(message.chat.id, userbot.id)
-                except Exception as e:
+                except Exception:
                     return await msg.edit(
                         f"ғᴀɪʟᴇᴅ ᴛᴏ ɪɴᴠɪᴛᴇ {userbot.mention} ᴀssɪsᴛᴀɴᴛ ᴛᴏ {message.chat.title}.\n\n**ʀᴇᴀsᴏɴ :** `{ex}`"
                     )
@@ -120,7 +119,7 @@ async def radio(client, message: Message):
         except InviteRequestSent:
             try:
                 await app.approve_chat_join_request(message.chat.id, userbot.id)
-            except Exception as e:
+            except Exception:
                 return await msg.edit(
                     f"ғᴀɪʟᴇᴅ ᴛᴏ ɪɴᴠɪᴛᴇ {userbot.mention} ᴀssɪsᴛᴀɴᴛ ᴛᴏ {message.chat.title}.\n\n**ʀᴇᴀsᴏɴ :** `{ex}`"
                 )
@@ -144,7 +143,7 @@ async def radio(client, message: Message):
     if RADIO_URL:
         language = await get_lang(message.chat.id)
         _ = get_string(language)
-        playmode = await get_playmode(message.chat.id)
+        await get_playmode(message.chat.id)
         playty = await get_playtype(message.chat.id)
         if playty != "Everyone":
             if message.from_user.id not in SUDOERS:

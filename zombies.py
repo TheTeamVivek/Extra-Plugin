@@ -5,7 +5,6 @@ from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import FloodWait
 from YukkiMusic import app
 
-
 chatQueue = []
 
 stopProcess = False

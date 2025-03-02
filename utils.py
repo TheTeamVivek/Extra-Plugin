@@ -11,7 +11,6 @@ from YukkiMusic import app
 from YukkiMusic.core.mongo import mongodb
 from YukkiMusic.misc import SUDOERS
 
-
 TheApi = Client()
 coupledb = {}
 greetingsdb = mongodb.greetings
@@ -167,7 +166,6 @@ async def unauthorised(
 
 
 async def bot_permissions(chat_id: int):
-    perms = []
     return await member_permissions(chat_id, app.id)
 
 

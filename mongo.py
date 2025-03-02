@@ -5,7 +5,6 @@ from pyrogram import filters
 from pyrogram.types import Message
 from YukkiMusic import app
 
-
 mongo_url_pattern = re.compile(r"mongodb(?:\+srv)?:\/\/[^\s]+")
 
 

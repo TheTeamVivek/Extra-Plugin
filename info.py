@@ -6,7 +6,6 @@ from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.database import is_gbanned_user
 
-
 n = "\n"
 w = " "
 
@@ -75,8 +74,8 @@ async def get_user_info(user, already=False):
     mention = user.mention("Link")
     dc_id = user.dc_id
     photo_id = user.photo.big_file_id if user.photo else None
-    is_gbanned = await is_gbanned_user(user_id)
-    is_sudo = user_id in SUDOERS
+    await is_gbanned_user(user_id)
+    user_id in SUDOERS
     is_premium = user.is_premium
     body = {
         "ɴᴀᴍᴇ": [first_name],
