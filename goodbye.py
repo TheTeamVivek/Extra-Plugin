@@ -3,8 +3,10 @@ from re import findall
 
 from pyrogram import filters
 from pyrogram.errors import ChatAdminRequired
+from pyrogram.enums import ChatMemberStatus as CMS
 from pyrogram.types import (
     Chat,
+    ChatMemberUpdated,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     Message,
@@ -41,13 +43,18 @@ async def handle_left_member(member, chat):
         return
 
 
-@app.on_message(filters.left_chat_member & filters.group, group=6)
+@app.on_chat_member_updated(filters.group, group=8)
 @utils.capture_err
-async def goodbye(_, m: Message):
-    if m.from_user:
-        member = await app.get_users(m.from_user.id)
-        chat = m.chat
-        return await handle_left_member(member, chat)
+async def member_has_left(c: app, member: ChatMemberUpdated):
+    if (
+        member.old_chat_member 
+        and member.new_chat_member is None 
+        and member.old_chat_member.status
+        not in {CMS.BANNED, CMS.RESTRICTED}
+    ):
+        chat = member.chat
+        user = member.old_chat_member.user
+        await handle_left_member(user, chat)
 
 
 async def send_left_message(chat: Chat, user_id: int, delete: bool = False):
