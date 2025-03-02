@@ -1,7 +1,7 @@
 import re
 
 from pyrogram import filters
-from youtubesearchpython.__future__ import VideosSearch
+from py_yt import VideosSearch
 from YukkiMusic import app
 
 
