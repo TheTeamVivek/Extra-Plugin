@@ -76,7 +76,7 @@ async def get_warns_count() -> dict:
     return {"chats_count": chats_count, "warns_count": warns_count}
 
 
-async def get_warns(chat_id: int) -> Dict[str, int]:
+async def get_warns(chat_id: int) -> dict[str, int]:
     warns = await warnsdb.find_one({"chat_id": chat_id})
     if not warns:
         return {}

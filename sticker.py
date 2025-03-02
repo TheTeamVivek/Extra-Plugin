@@ -53,7 +53,7 @@ async def create_sticker_set(
     owner: int,
     title: str,
     short_name: str,
-    stickers: List[raw.base.InputStickerSetItem],
+    stickers: list[raw.base.InputStickerSetItem],
 ) -> raw.base.messages.StickerSet:
     return await client.invoke(
         raw.functions.stickers.CreateStickerSet(
