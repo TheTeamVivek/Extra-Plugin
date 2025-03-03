@@ -29,10 +29,10 @@ def download_website(url):
 
 # Handler for /webdl command to download website source code
 @app.on_message(filters.command("webdl"))
-def web_download(client, message):
+async def web_download(client, message):
     # Check if the command has a URL attached
     if len(message.command) == 1:
-        message.reply_text("Please enter a URL along with the /webdl command.")
+        await message.reply_text("Please enter a URL along with the /webdl command.")
         return
 
     # Get the URL after /webdl command
@@ -42,12 +42,15 @@ def web_download(client, message):
     if source_code.startswith("An error occurred") or source_code.startswith(
         "Failed to download"
     ):
-        message.reply_text(source_code)
+        await message.reply_text(source_code)
     else:
         # Save the source code to a file
         with open("website.txt", "w", encoding="utf-8") as file:
             file.write(source_code)
-        message.reply_document(document="website.txt", caption=f"Source code of {url}")
+
+        await message.reply_document(
+            document="website.txt", caption=f"Source code of {url}"
+        )
 
 
 __MODULE__ = "Wᴇʙᴅʟ"
