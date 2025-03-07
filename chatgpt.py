@@ -27,11 +27,24 @@ async def chatgpt_chat(bot, message):
             {"role": "user", "content": user_input},
         ],
     )
-    await x.edit(
+
+    response_text = (
         response.choices[0]
         .message.content.replace("[[Login to OpenAI ChatGPT]]()", "")
         .strip()
     )
+
+    # Telegram's max message length is 4096 characters, split if necessary
+    if len(response_text) > 4000:
+        parts = [
+            response_text[i : i + 4000] for i in range(0, len(response_text), 4000)
+        ]
+        await x.edit(parts[0])
+        for part in parts[1:]:
+            await message.reply_text(part)
+    else:
+        await x.edit(response_text)
+
     await message.stop_propagation()
 
 
