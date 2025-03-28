@@ -21,8 +21,8 @@ async def get_link_group(client, message):
     elif media.document:
         file_size = media.document.file_size
 
-    if file_size > 15 * 1024 * 1024:
-        return await message.reply_text("Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 15MB.")
+    if file_size > 50 * 1024 * 1024:
+        return await message.reply_text("Pʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴍᴇᴅɪᴀ ғɪʟᴇ ᴜɴᴅᴇʀ 50MB.")
 
     try:
         text = await message.reply("Pʀᴏᴄᴇssɪɴɢ...")
@@ -37,22 +37,23 @@ async def get_link_group(client, message):
             local_path = await media.download(progress=progress)
             await text.edit_text("📤 Uᴘʟᴏᴀᴅɪɴɢ ᴛᴏ ᴛᴇʟᴇɢʀᴀᴘʜ...")
 
-            upload_path = await utils.TheApi.upload_image(local_path)
-
-            await text.edit_text(
-                f"🌐 | [ᴜᴘʟᴏᴀᴅᴇᴅ ʟɪɴᴋ]({upload_path})",
+            data = await utils.TheApi.upload_image(local_path)
+            if data["success"]:
+                await text.edit_text(
+                f"🌐 | [ᴜᴘʟᴏᴀᴅᴇᴅ ʟɪɴᴋ]({data["url"]})",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
                                 "ᴜᴘʟᴏᴀᴅᴇᴅ ғɪʟᴇ",
-                                url=upload_path,
+                                url=data["url"],
                             )
                         ]
                     ]
                 ),
             )
-
+            else:
+                await text.edit_text(f"❌ Fɪʟᴇ ᴜᴘʟᴏᴀᴅ ғᴀɪʟᴇᴅ\n\n<i>Rᴇᴀsᴏɴ: {data["error"]}</i>")
             try:
                 os.remove(local_path)
             except Exception:
