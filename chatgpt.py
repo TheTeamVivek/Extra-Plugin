@@ -3,6 +3,7 @@ from g4f.client import AsyncClient
 from pyrogram import filters
 from YukkiMusic import app
 
+from pyrogram.enums import ParseMode
 client = AsyncClient()
 
 
@@ -39,11 +40,11 @@ async def chatgpt_chat(bot, message):
         parts = [
             response_text[i : i + 4000] for i in range(0, len(response_text), 4000)
         ]
-        await x.edit(parts[0])
+        await x.edit(parts[0], parse_mode=ParseMode.DISABLED)
         for part in parts[1:]:
-            await message.reply_text(part)
+            await message.reply_text(part, parse_mode=ParseMode.DISABLED)
     else:
-        await x.edit(response_text)
+        await x.edit(response_text, parse_mode=ParseMode.DISABLED)
 
     await message.stop_propagation()
 
