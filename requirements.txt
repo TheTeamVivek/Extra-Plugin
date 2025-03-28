@@ -3,7 +3,8 @@ filetype # Replacement of imghdr
 gTTS
 googlesearch-python
 httpx[http2]
-TheApix
+#TheApix
+git+https://github.com/Vivekkumar-IN/TheApi
 pyfiglet
 lexica-api
 MukeshAPI
