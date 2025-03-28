@@ -40,20 +40,22 @@ async def get_link_group(client, message):
             data = await utils.TheApi.upload_image(local_path)
             if data["success"]:
                 await text.edit_text(
-                f"🌐 | [ᴜᴘʟᴏᴀᴅᴇᴅ ʟɪɴᴋ]({data['url']})",
-                reply_markup=InlineKeyboardMarkup(
-                    [
+                    f"🌐 | [ᴜᴘʟᴏᴀᴅᴇᴅ ʟɪɴᴋ]({data['url']})",
+                    reply_markup=InlineKeyboardMarkup(
                         [
-                            InlineKeyboardButton(
-                                "ᴜᴘʟᴏᴀᴅᴇᴅ ғɪʟᴇ",
-                                url=data["url"],
-                            )
+                            [
+                                InlineKeyboardButton(
+                                    "ᴜᴘʟᴏᴀᴅᴇᴅ ғɪʟᴇ",
+                                    url=data["url"],
+                                )
+                            ]
                         ]
-                    ]
-                ),
-            )
+                    ),
+                )
             else:
-                await text.edit_text(f"❌ Fɪʟᴇ ᴜᴘʟᴏᴀᴅ ғᴀɪʟᴇᴅ\n\n<i>Rᴇᴀsᴏɴ: {data['error']}</i>")
+                await text.edit_text(
+                    f"❌ Fɪʟᴇ ᴜᴘʟᴏᴀᴅ ғᴀɪʟᴇᴅ\n\n<i>Rᴇᴀsᴏɴ: {data['error']}</i>"
+                )
             try:
                 os.remove(local_path)
             except Exception:
