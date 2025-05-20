@@ -4,7 +4,7 @@ gTTS
 googlesearch-python
 httpx[http2]
 #TheApix
-git+https://github.com/Vivekkumar-IN/TheApi
+TheApix
 pyfiglet
 lexica-api
 MukeshAPI
