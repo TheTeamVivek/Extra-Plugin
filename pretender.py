@@ -1,7 +1,5 @@
 from typing import Union
 
-from config import MONGO_DB_URI
-
 from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter
 from pyrogram.types import Message
