@@ -69,7 +69,7 @@ async def staffs(client, message):
     await app.send_message(message.chat.id, result_text)
 
 
-__MODULE__ = "Bots and Staff Management"
+__MODULE__ = "Bots"
 __HELP__ = """
 • /bots - Get a list of bots in the group.
 • /staffs - Get a list of staff members (owners & admins) in the group.
