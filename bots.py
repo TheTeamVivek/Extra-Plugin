@@ -24,7 +24,7 @@ async def bots(client, message):
     await app.send_message(message.chat.id, result_text)
 
 
-@app.on_message(filters.command("staffs") & filters.group)
+@app.on_message(filters.command(["staff", "staffs"]) & filters.group)
 async def staffs(client, message):
     owner_list = []
     admin_list = []
