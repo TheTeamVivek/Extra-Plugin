@@ -1,15 +1,14 @@
 from typing import Union
 
 from config import MONGO_DB_URI
-from motor.motor_asyncio import AsyncIOMotorClient as MongoCli
+
 from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter
 from pyrogram.types import Message
 from YukkiMusic import app
+from YukkiMusic.core.mongo import mongodb
 
-mongo = MongoCli(MONGO_DB_URI).Rankings
-
-impdb = mongo.pretender
+impdb = mongodb.impdb
 
 
 async def usr_data(chat_id: int, user_id: int) -> bool:
