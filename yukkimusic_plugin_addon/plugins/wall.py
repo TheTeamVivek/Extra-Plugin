@@ -8,7 +8,6 @@ from YukkiMusic import app
 
 @app.on_message(filters.command(["wall", "wallpaper"]))
 async def wall(_, message: Message):
-
     try:
         text = message.text.split(None, 1)[1]
     except IndexError:

@@ -28,7 +28,6 @@ async def dice(c, m: Message):
         value = await c.send_dice(m.chat.id, reply_markup=keyboard)
 
     elif command == "/dart":
-
         value = await c.send_dice(m.chat.id, emoji="🎯", reply_to_message_id=m.id)
         await value.reply_text(f"ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {value.dice.value}")
 

@@ -216,9 +216,9 @@ async def pyrogram_to_quotly(messages, is_reply):
         the_message_dict_to_append["from"]["name"] = await get_message_sender_name(
             message
         )
-        the_message_dict_to_append["from"]["username"] = (
-            await get_message_sender_username(message)
-        )
+        the_message_dict_to_append["from"][
+            "username"
+        ] = await get_message_sender_username(message)
         the_message_dict_to_append["from"]["type"] = message.chat.type.name.lower()
         the_message_dict_to_append["from"]["photo"] = await get_message_sender_photo(
             message

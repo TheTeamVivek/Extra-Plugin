@@ -13,7 +13,6 @@ stopProcess = False
 @app.on_message(filters.command(["zombies"]))
 @utils.adminsOnly("can_restrict_members")
 async def remove(client, message):
-
     global stopProcess
     try:
         try:

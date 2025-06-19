@@ -20,7 +20,6 @@ extract_urls = utils.extract_urls
 
 
 async def handle_new_member(member, chat):
-
     try:
         if member.id in SUDOERS:
             return
@@ -211,7 +210,7 @@ async def get_welcome_func(_, message):
     await send_welcome_message(chat, message.from_user.id)
 
     await message.reply_text(
-        f'Welcome: {welcome}\n\nFile_id: `{file_id}`\n\n`{raw_text.replace("`", "")}`'
+        f"Welcome: {welcome}\n\nFile_id: `{file_id}`\n\n`{raw_text.replace('`', '')}`"
     )
 
 

@@ -82,7 +82,7 @@ async def get_warns(chat_id: int) -> dict[str, int]:
     return warns["warns"]
 
 
-async def get_warn(chat_id: int, name: str) -> Union[bool, dict]:
+async def get_warn(chat_id: int, name: str) -> bool | dict:
     name = name.lower().strip()
     warns = await get_warns(chat_id)
     if name in warns:
@@ -135,8 +135,8 @@ async def kickFunc(_, message: Message):
     mention = (await app.get_users(user_id)).mention
     msg = f"""
 **ᴋɪᴄᴋᴇᴅ ᴜsᴇʀ:** {mention}
-**ᴋɪᴄᴋᴇᴅ ʙʏ:** {message.from_user.mention if message.from_user else 'ᴀɴᴏɴᴍᴏᴜs'}
-**ʀᴇᴀsᴏɴ:** {reason or 'ɴᴏ ʀᴇᴀsᴏɴ ᴘʀᴏᴠɪᴅᴇᴅ'}"""
+**ᴋɪᴄᴋᴇᴅ ʙʏ:** {message.from_user.mention if message.from_user else "ᴀɴᴏɴᴍᴏᴜs"}
+**ʀᴇᴀsᴏɴ:** {reason or "ɴᴏ ʀᴇᴀsᴏɴ ᴘʀᴏᴠɪᴅᴇᴅ"}"""
     await message.chat.ban_member(user_id)
     replied_message = message.reply_to_message
     if replied_message:
@@ -563,8 +563,8 @@ async def warn_user(_, message: Message):
         warn = {"warns": warns + 1}
         msg = f"""
 **ᴡᴀʀɴᴇᴅ ᴜsᴇʀ:** {mention}
-**ᴡᴀʀɴᴇᴅ ʙʏ:** {message.from_user.mention if message.from_user else 'ᴀɴᴏɴᴍᴏᴜs'}
-**ʀᴇᴀsᴏɴ :** {reason or 'ɴᴏ ʀᴇᴀsᴏɴ ᴘʀᴏᴠᴏᴅᴇᴅ'}
+**ᴡᴀʀɴᴇᴅ ʙʏ:** {message.from_user.mention if message.from_user else "ᴀɴᴏɴᴍᴏᴜs"}
+**ʀᴇᴀsᴏɴ :** {reason or "ɴᴏ ʀᴇᴀsᴏɴ ᴘʀᴏᴠᴏᴅᴇᴅ"}
 **ᴡᴀʀɴs:** {warns + 1}/3"""
         replied_message = message.reply_to_message
         if replied_message:

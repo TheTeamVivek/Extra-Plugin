@@ -5,7 +5,6 @@ from YukkiMusic import app
 @app.on_message(filters.command("removephoto"))
 @utils.adminsOnly("can_change_info")
 async def deletechatphoto(_, message):
-
     chat_id = message.chat.id
     user_id = message.from_user.id
     msg = await message.reply_text("**ᴘʀᴏᴄᴇssɪɴɢ....**")

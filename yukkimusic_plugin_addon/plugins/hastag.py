@@ -4,7 +4,6 @@ from YukkiMusic import app
 
 @app.on_message(filters.command("hastag"))
 async def hastag(bot, message):
-
     try:
         text = message.text.split(" ", 1)[1]
         res = await utils.TheApi.gen_hashtag(text)

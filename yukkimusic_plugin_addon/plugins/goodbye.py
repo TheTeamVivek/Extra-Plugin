@@ -21,7 +21,6 @@ extract_urls = utils.extract_urls
 
 
 async def handle_left_member(member, chat):
-
     try:
         if member.id in SUDOERS:
             return
@@ -260,7 +259,7 @@ async def get_goodbye_func(_, message):
     else:
         text = "Fᴀʟsᴇ"
     await message.reply_text(
-        f'I ᴀᴍ ᴄᴜʀʀᴇɴᴛʟʏ sᴀʏɪɴɢ ɢᴏᴏᴅʙʏᴇ ᴛᴏ ᴜsᴇʀs :- {text}\nGᴏᴏᴅʙʏᴇ: {goodbye}\n\nғɪʟᴇ_ɪᴅ: `{file_id}`\n\n`{raw_text.replace("`", "")}`'
+        f"I ᴀᴍ ᴄᴜʀʀᴇɴᴛʟʏ sᴀʏɪɴɢ ɢᴏᴏᴅʙʏᴇ ᴛᴏ ᴜsᴇʀs :- {text}\nGᴏᴏᴅʙʏᴇ: {goodbye}\n\nғɪʟᴇ_ɪᴅ: `{file_id}`\n\n`{raw_text.replace('`', '')}`"
     )
 
 

@@ -14,7 +14,7 @@ async def usr_data(chat_id: int, user_id: int) -> bool:
     return bool(user)
 
 
-async def get_userdata(chat_id: int, user_id: int) -> Union[dict[str, str], None]:
+async def get_userdata(chat_id: int, user_id: int) -> dict[str, str] | None:
     user = await impdb.find_one({"chat_id": chat_id, "user_id": user_id})
     return user
 
