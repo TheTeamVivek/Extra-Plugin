@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yukkimusic-plugin-addon"
+version = "1.0.0"
+description = "A collection of addon plugins for YukkiMusic, adapted from various open-source Telegram bot projects."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "TheTeamVivek" }
+]
+
+dependencies = [
+  "g4f[all]",
+  "filetype",
+  "gTTS",
+  "googlesearch-python",
+  "httpx[http2]",
+  "pyfiglet",
+  "lexica-api",
+  "MukeshAPI",
+  "nekos.py",
+  "uuid",
+]
+
+[tool.setuptools.packages.find]
+include = ["yukkimusic_plugin_addon"]
+
+[project.urls]
+Repository = "https://github.com/TheTeamVivek/Extra-Plugin/"

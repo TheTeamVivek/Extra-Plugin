@@ -1,0 +1,14 @@
+name: format codes
+
+on:
+  push:
+    paths:
+      - "**.py"
+      - ".github/workflows/format.yml"
+  workflow_dispatch:
+
+jobs:
+  format:
+    uses: Vivekkumar-IN/assets/.github/workflows/format.yml@master
+    with:
+      language: python
